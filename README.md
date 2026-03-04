@@ -13,12 +13,29 @@ Official [OpenClaw](https://openclaw.ai) skills for the [Nodie](https://nodie.ai
 
 1. **Get your API Key**: Sign up at [nodie.ai](https://nodie.ai), then go to **Settings → Account → Developer API** to generate your key.
 
-2. **Install skills**:
+2. **Install skills** (choose one method):
+
+**Option A — ClawHub (recommended)**:
 
 ```bash
 clawhub install nodie
 clawhub install nodie-credentials
 ```
+
+**Option B — Manual install from ZIP**:
+
+Download this repo as a ZIP from the green **Code → Download ZIP** button above (or from [Releases](https://github.com/saddlepoint-ai/nodie-skills/releases)), then extract and copy the skill folders into your OpenClaw skills directory:
+
+```bash
+# Extract the ZIP
+unzip nodie-skills-main.zip
+
+# Copy skill folders to OpenClaw
+cp -r nodie-skills-main/nodie ~/.openclaw/skills/
+cp -r nodie-skills-main/nodie-credentials ~/.openclaw/skills/
+```
+
+Alternatively, you can provide the skill folder path directly to OpenClaw when it prompts for skill installation.
 
 3. **Configure** `~/.openclaw/openclaw.json`:
 
