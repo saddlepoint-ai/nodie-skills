@@ -93,7 +93,7 @@ We welcome issues and feature requests. For skill improvements, please open a pu
 ## Support
 
 - [Nodie Dashboard](https://nodie.ai)
-- [Documentation](https://nodie.ai/docs)
+- [Node Reference](https://www.nodie.ai/docs/nodes)
 
 ## License
 
