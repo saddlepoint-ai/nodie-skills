@@ -69,6 +69,28 @@ All requests go to `$NODIE_API_URL` with `Authorization: Bearer $NODIE_API_KEY`.
 
 For past results: GET execution by `execution_id`.
 
+### Execution Timing (IMPORTANT)
+
+Many nodes rely on external services (Apify crawlers, AssemblyAI, LLM generation, etc.) and take **30–120 seconds** to complete. Never assume instant completion.
+
+**Slow nodes** (expect 30–120s): `twitter.search`, `xhs.search`, `youtube.search`, `youtube.get_videos`, `youtube.get_channel`, `instagram.search`, `tiktok.search`, `pinterest.search`, `linkedin.search`, `reddit.search`, `video.fetch`, `assemblyai.transcribe`, `xfyun.transcribe`, `gemini.video`.
+
+**Required pattern when calling `/execute`:**
+
+1. **Set a long timeout on your exec/fetch call** — at least 90–120 seconds. The default shell timeout (e.g. 10s) is far too short for most workflows.
+   ```
+   # Example: set yieldMs/timeout to 120s
+   exec(command="curl -s -m 120 -X POST ...", yieldMs=120000)
+   ```
+2. **If the command backgrounds** (you see "Command still running" or similar), **you MUST poll/wait for completion** before responding. Use your runtime's polling mechanism (e.g. `process(action=poll, timeout=90000)`) to block until the HTTP response is fully received.
+3. **Async fallback** — if polling is unavailable, use the GET endpoint to check execution status:
+   ```bash
+   curl -s "$NODIE_API_URL/api/v1/openclaw/executions/{execution_id}" \
+     -H "Authorization: Bearer $NODIE_API_KEY"
+   ```
+   Re-check every 10–15 seconds until `status` is `completed` or `failed`.
+4. **NEVER report "0 results", "no data", or "execution failed"** until you have confirmed the execution has actually finished (received a complete HTTP response with status and body). A backgrounded or timed-out command is NOT a completed execution.
+
 ## Node Catalog
 
 All available nodes are listed below. For each node you select, read its parameter schema: `{baseDir}/references/nodes/<node_type>.md`
@@ -225,15 +247,16 @@ Key points:
 
 ## Rules
 
-1. **Always include `next`** between nodes. Nodes without `next` are dead ends whose output is lost.
-2. **Always end with `output`** node to surface results to the user.
-3. **Read node schemas** (`references/nodes/<type>.md`) before generating DSL — do NOT guess parameters.
-4. **Never fabricate data** — run actual API calls and present real responses. If execution fails, report honestly.
-5. **Use `$env['VAR']`** for API keys (string form only). Never use `{"$env": "VAR"}` or `$env.VAR`.
-6. **Use `code` nodes** for data transformation (formatting, filtering). Use AI nodes (`openai_chat`, `claude.chat`) for analysis/summarization.
-7. **No logic in `${{ }}`** — only simple path references. Complex formatting goes in a `code` node first.
-8. **Message delivery**: Use `output` node for replying to the current user. Use messaging nodes (`slack.post_message`, `email.send`, etc.) only when sending to a specific external target.
-9. **Never show raw workflow DSL/JSON to the user.** The workflow is internal scaffolding; present results in natural language.
+1. **Wait for execution to complete before responding.** Workflow execution can take 30–120 seconds. Never interpret a backgrounded, timed-out, or incomplete HTTP call as "no results". See **Execution Timing** above.
+2. **Always include `next`** between nodes. Nodes without `next` are dead ends whose output is lost.
+3. **Always end with `output`** node to surface results to the user.
+4. **Read node schemas** (`references/nodes/<type>.md`) before generating DSL — do NOT guess parameters.
+5. **Never fabricate data** — run actual API calls and present real responses. If execution fails, report honestly.
+6. **Use `$env['VAR']`** for API keys (string form only). Never use `{"$env": "VAR"}` or `$env.VAR`.
+7. **Use `code` nodes** for data transformation (formatting, filtering). Use AI nodes (`openai_chat`, `claude.chat`) for analysis/summarization.
+8. **No logic in `${{ }}`** — only simple path references. Complex formatting goes in a `code` node first.
+9. **Message delivery**: Use `output` node for replying to the current user. Use messaging nodes (`slack.post_message`, `email.send`, etc.) only when sending to a specific external target.
+10. **Never show raw workflow DSL/JSON to the user.** The workflow is internal scaffolding; present results in natural language.
 
 ## Scheduling Workflows
 
