@@ -1,6 +1,11 @@
 # Nodie Skills for OpenClaw
 
-Official [OpenClaw](https://openclaw.ai) skills for the [Nodie](https://nodie.ai) workflow automation platform.
+Official [Nodie](https://nodie.ai) skills for the [OpenClaw](https://openclaw.ai) agent.
+
+**Use when** you want to:
+- Scrape XiaoHongShu, X, YouTube, Instagram, TikTok, and more with zero setup
+- Run GPT, Claude, or Gemini for summarization, analysis, and generation (billed through your Nodie balance)
+- Connect Notion, Google Workspace, Slack, GitHub, and others via nodie-credentials (OAuth)
 
 ## Skills
 
@@ -68,15 +73,11 @@ Search and scrape content from XiaoHongShu (RedNote), Twitter/X, YouTube, Instag
 
 ### AI-Powered Processing
 
-Use GPT-4, Claude, and Gemini nodes for summarization, analysis, content generation, image creation, and video analysis — all billed through your Nodie balance.
+Use GPT, Claude, and Gemini family nodes for summarization, analysis, content generation, image creation, and video analysis — all billed through your Nodie balance.
 
 ### OAuth Integrations (via nodie-credentials)
 
 Connect Notion, Google Workspace (Gmail, Sheets, Docs, Drive), Slack, GitHub, Airtable, Trello, Supabase, and SMTP email.
-
-### Scheduling
-
-Combine with OpenClaw's cron tool to schedule recurring workflow executions.
 
 ## Repo Structure
 
@@ -109,7 +110,8 @@ We welcome issues and feature requests. For skill improvements, please open a pu
 
 ## Support
 
-- [Nodie Dashboard](https://nodie.ai)
+- [Nodie Lab (homepage)](https://www.nodie.ai/lab)
+- [Nodie Dashboard (pricing & billing)](https://www.nodie.ai/pricing)
 - [Node Reference](https://www.nodie.ai/docs/nodes)
 
 ## License
