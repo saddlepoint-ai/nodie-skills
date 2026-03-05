@@ -1,5 +1,9 @@
 # Nodie Skills for OpenClaw
 
+<p align="center">
+  <img src="assets/nodie-skills-icon.png" alt="Nodie Skills" width="256" />
+</p>
+
 Official [Nodie](https://nodie.ai) skills for the [OpenClaw](https://openclaw.ai) agent.
 
 **Use when** you want to:
