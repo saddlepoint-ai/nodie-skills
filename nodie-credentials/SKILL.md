@@ -1,7 +1,7 @@
 ---
 name: nodie-credentials
 description: Retrieve OAuth tokens and API keys from Nodie Vault for calling third-party APIs directly (Google, Notion, Slack, GitHub, etc.). Use when you need auth headers for direct HTTP requests, when checking which services a user has connected, or when a task fails due to missing credentials — detects the gap and guides setup automatically.
-metadata: {"openclaw": {"requires": {"env": ["NODIE_API_URL", "NODIE_API_KEY"]}, "primaryEnv": "NODIE_API_KEY"}, "version": "1.2.0"}
+metadata: {"openclaw": {"requires": {"env": ["NODIE_API_URL", "NODIE_API_KEY"]}, "primaryEnv": "NODIE_API_KEY"}, "version": "1.0.0"}
 ---
 
 # Nodie Credentials — Credential Management for Nodie Vault

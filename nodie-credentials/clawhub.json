@@ -5,7 +5,7 @@
   "description": "Retrieve OAuth tokens and API keys from Nodie Vault for calling third-party APIs directly. Detects missing credentials and guides setup automatically. Companion skill for the nodie workflow engine.",
   "category": "utilities",
   "tags": ["credentials", "oauth", "api-keys", "authentication"],
-  "version": "1.2.0",
+  "version": "1.0.0",
   "homepage": "https://nodie.ai",
   "support": "https://nodie.ai/support",
   "companionSkills": ["nodie"]

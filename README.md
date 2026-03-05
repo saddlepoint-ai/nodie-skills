@@ -93,8 +93,7 @@ nodie-skills/
 │   └── references/            # Documentation for the agent
 │       ├── dsl-rules.md       # Workflow DSL syntax rules
 │       ├── examples.md        # Workflow examples
-│       ├── node_catalog.md    # Node quick reference
-│       ├── node_catalog_full.generated.md  # Auto-generated full catalog
+│       ├── node_catalog.md    # Full node reference (keywords + parameter schemas)
 │       └── nodes/             # Per-node detailed docs (60+ files)
 ├── nodie-credentials/         # Credential management companion skill
 │   ├── SKILL.md

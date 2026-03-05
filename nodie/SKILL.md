@@ -1,7 +1,7 @@
 ---
 name: nodie
 description: Build and run automated workflows connecting 50+ services. Zero-auth social media scraping for 11 platforms (XHS, Twitter/X, YouTube, Instagram, TikTok, Pinterest, Reddit, LinkedIn, Bilibili, Discord). AI-powered nodes (GPT-4, Claude, Gemini). Connect Notion, Google Workspace, Slack and more via OAuth. Use when the user wants to automate multi-step tasks, fetch platform data, or schedule recurring jobs.
-metadata: {"openclaw": {"requires": {"env": ["NODIE_API_URL", "NODIE_API_KEY"]}, "primaryEnv": "NODIE_API_KEY"}, "version": "2.0.0"}
+metadata: {"openclaw": {"requires": {"env": ["NODIE_API_URL", "NODIE_API_KEY"]}, "primaryEnv": "NODIE_API_KEY"}, "version": "1.0.0"}
 ---
 
 # Nodie Workflow Engine
