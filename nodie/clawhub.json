@@ -6,7 +6,9 @@
   "category": "automation",
   "tags": ["workflow", "automation", "social-media", "scraping", "api", "integration"],
   "version": "1.0.0",
-  "homepage": "https://nodie.ai",
+  "license": "proprietary",
+  "pricing": "usage-based",
+  "homepage": "https://github.com/saddlepoint-ai/nodie-skills",
   "support": "https://nodie.ai/support",
   "companionSkills": ["nodie-credentials"]
 }

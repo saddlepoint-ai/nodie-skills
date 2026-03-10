@@ -6,7 +6,9 @@
   "category": "utilities",
   "tags": ["credentials", "oauth", "api-keys", "authentication"],
   "version": "1.0.0",
-  "homepage": "https://nodie.ai",
+  "license": "proprietary",
+  "pricing": "usage-based",
+  "homepage": "https://github.com/saddlepoint-ai/nodie-skills",
   "support": "https://nodie.ai/support",
   "companionSkills": ["nodie"]
 }

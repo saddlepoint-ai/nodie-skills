@@ -1,7 +1,8 @@
 ---
 name: nodie
 description: Build and run automated workflows connecting 50+ services. Zero-auth social media scraping for 11 platforms (XHS, Twitter/X, YouTube, Instagram, TikTok, Pinterest, Reddit, LinkedIn, Bilibili, Discord). AI-powered nodes (GPT-4, Claude, Gemini). Connect Notion, Google Workspace, Slack and more via OAuth. Use when the user wants to automate multi-step tasks, fetch platform data, or schedule recurring jobs.
-metadata: {"openclaw": {"requires": {"env": ["NODIE_API_URL", "NODIE_API_KEY"]}, "primaryEnv": "NODIE_API_KEY"}, "version": "1.0.0"}
+homepage: https://github.com/saddlepoint-ai/nodie-skills
+metadata: {"clawdbot": {"emoji": "🤖", "requires": {"env": ["NODIE_API_URL", "NODIE_API_KEY"]}, "primaryEnv": "NODIE_API_KEY", "files": ["references/*"]}, "version": "1.0.0"}
 ---
 
 # Nodie Workflow Engine
@@ -270,3 +271,33 @@ Execute Nodie workflow in workspace <WORKSPACE_ID> using the nodie skill. Summar
 ```
 
 Use `sessionTarget: "isolated"` and `delivery: { mode: "announce" }` so results go to the user's chat without polluting main session history.
+
+## External Endpoints
+
+| Endpoint | Method | Data Sent |
+|----------|--------|-----------|
+| `$NODIE_API_URL/api/v1/openclaw/workspaces/create` | POST | Workspace name |
+| `$NODIE_API_URL/api/v1/openclaw/workspaces/{id}/save` | POST | Workflow DSL (node definitions, parameters) |
+| `$NODIE_API_URL/api/v1/openclaw/execute` | POST | Workspace ID |
+| `$NODIE_API_URL/api/v1/openclaw/executions/{id}` | GET | — |
+| `$NODIE_API_URL/api/v1/openclaw/workspaces/{id}/workflow` | GET | — |
+| `$NODIE_API_URL/api/v1/openclaw/workspaces/{id}/executions` | GET | — |
+| `$NODIE_API_URL/api/v1/openclaw/workspaces/list` | GET | — |
+| `$NODIE_API_URL/api/v1/openclaw/workspaces/{id}` | DELETE | — |
+
+All requests are authenticated with `Authorization: Bearer $NODIE_API_KEY`. No other external endpoints are contacted directly by this skill.
+
+## Security & Privacy
+
+- **What leaves your machine**: Workflow DSL definitions (node types, parameters, search keywords) and execution commands are sent to the Nodie API server (`$NODIE_API_URL`).
+- **What stays local**: No local files are read or written. No local services are accessed. The skill operates entirely via HTTP API calls.
+- **Credentials**: Only `NODIE_API_KEY` is used for authentication. Upstream provider keys (Apify, OpenAI, etc.) are managed server-side by Nodie and never appear on the client.
+- **Data retention**: Workflow definitions and execution results are stored on the Nodie platform under your account. See [Nodie Privacy Policy](https://nodie.ai/privacy) for details.
+
+## Model Invocation Note
+
+This skill may be invoked autonomously by the OpenClaw agent when it determines a workflow automation task is relevant. This is standard behavior for installed skills. You can disable this skill at any time by setting `"enabled": false` in your `openclaw.json` configuration.
+
+## Trust Statement
+
+By installing and using this skill, workflow definitions and execution data are sent to the Nodie API (`api.nodie.ai`), operated by Saddlepoint AI. Only install this skill if you trust [Nodie](https://nodie.ai) and accept the [Nodie Terms of Service](https://nodie.ai/terms).

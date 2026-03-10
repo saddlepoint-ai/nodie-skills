@@ -1,7 +1,8 @@
 ---
 name: nodie-credentials
 description: Retrieve OAuth tokens and API keys from Nodie Vault for calling third-party APIs directly (Google, Notion, Slack, GitHub, etc.). Use when you need auth headers for direct HTTP requests, when checking which services a user has connected, or when a task fails due to missing credentials — detects the gap and guides setup automatically.
-metadata: {"openclaw": {"requires": {"env": ["NODIE_API_URL", "NODIE_API_KEY"]}, "primaryEnv": "NODIE_API_KEY"}, "version": "1.0.0"}
+homepage: https://github.com/saddlepoint-ai/nodie-skills
+metadata: {"clawdbot": {"emoji": "🔐", "requires": {"env": ["NODIE_API_URL", "NODIE_API_KEY"]}, "primaryEnv": "NODIE_API_KEY", "files": ["references/*"]}, "version": "1.0.0"}
 ---
 
 # Nodie Credentials — Credential Management for Nodie Vault
@@ -295,3 +296,30 @@ After all credentials are connected, resume the original operation automatically
 - **System providers are hidden** — providers like `apify_system` and `rapidapi` are internal and not shown to users.
 - **Always check before using** — never assume a credential is connected. Always call the API first.
 - **One provider at a time** — guide users to set up one missing credential at a time to avoid confusion.
+
+## External Endpoints
+
+| Endpoint | Method | Data Sent |
+|----------|--------|-----------|
+| `$NODIE_API_URL/api/v1/openclaw/credentials/credential/{provider}` | GET | — |
+| `$NODIE_API_URL/api/v1/openclaw/credentials/credential/{provider}` | PUT | API key or token (user-provided) |
+| `$NODIE_API_URL/api/v1/openclaw/credentials/credential/{provider}/schema` | GET | — |
+| `$NODIE_API_URL/api/v1/openclaw/credentials/status` | GET | — |
+| `$NODIE_API_URL/api/v1/openclaw/credentials/connect-url` | GET | Provider name (query param) |
+
+All requests are authenticated with `Authorization: Bearer $NODIE_API_KEY`. No other external endpoints are contacted directly by this skill.
+
+## Security & Privacy
+
+- **What leaves your machine**: Credential retrieval requests and user-provided API keys/tokens are sent to the Nodie Vault API (`$NODIE_API_URL`).
+- **What stays local**: No local files are read or written. Retrieved tokens are used in-memory for the current session only.
+- **Credentials**: OAuth tokens are managed and auto-refreshed server-side by Nodie Vault (via Nango). API keys provided by the user are stored encrypted in Nodie Vault.
+- **No local caching**: Credentials are never cached locally — always fetched fresh from the API per session.
+
+## Model Invocation Note
+
+This skill may be invoked autonomously by the OpenClaw agent when it detects a missing credential during a task. This is standard behavior — the skill guides the user through setup before resuming the original operation. You can disable this skill at any time by setting `"enabled": false` in your `openclaw.json` configuration.
+
+## Trust Statement
+
+By installing and using this skill, credential data (OAuth tokens, API keys) is managed through the Nodie Vault API (`api.nodie.ai`), operated by Saddlepoint AI. Only install this skill if you trust [Nodie](https://nodie.ai) and accept the [Nodie Terms of Service](https://nodie.ai/terms).
