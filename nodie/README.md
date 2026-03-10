@@ -11,9 +11,17 @@ Build and run automated workflows connecting 50+ services from your OpenClaw age
 
 ## Install
 
+**Option A — ClawHub CLI (recommended)**:
+
 ```bash
 clawhub install nodie
 ```
+
+**Option B — GitHub URL**: Paste `https://github.com/saddlepoint-ai/nodie-skills` into OpenClaw when prompted for a skill source.
+
+**Option C — Git Clone**: `git clone https://github.com/saddlepoint-ai/nodie-skills.git ~/.openclaw/skills/nodie-skills`
+
+**Option D — ZIP**: Download from [Releases](https://github.com/saddlepoint-ai/nodie-skills/releases), extract, and copy the `nodie/` folder to `~/.openclaw/skills/`.
 
 ## Configuration
 

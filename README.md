@@ -24,27 +24,40 @@ Official [Nodie](https://nodie.ai) skills for the [OpenClaw](https://openclaw.ai
 
 2. **Install skills** (choose one method):
 
-**Option A — ClawHub (recommended)**:
+**Option A — ClawHub CLI (recommended)**:
 
 ```bash
 clawhub install nodie
 clawhub install nodie-credentials
 ```
 
-**Option B — Manual install from ZIP**:
+**Option B — GitHub URL**:
 
-Download this repo as a ZIP from the green **Code → Download ZIP** button above (or from [Releases](https://github.com/saddlepoint-ai/nodie-skills/releases)), then extract and copy the skill folders into your OpenClaw skills directory:
+Paste the repository URL directly into your OpenClaw skill settings or when prompted for a skill source:
+
+```
+https://github.com/saddlepoint-ai/nodie-skills
+```
+
+OpenClaw will automatically detect and install the skills from the repo.
+
+**Option C — Git Clone**:
+
+Clone directly into your OpenClaw skills directory. This lets you track updates via `git pull`:
 
 ```bash
-# Extract the ZIP
-unzip nodie-skills-main.zip
+git clone https://github.com/saddlepoint-ai/nodie-skills.git ~/.openclaw/skills/nodie-skills
+```
 
-# Copy skill folders to OpenClaw
+**Option D — Manual install from ZIP**:
+
+Download from [Releases](https://github.com/saddlepoint-ai/nodie-skills/releases) or the green **Code → Download ZIP** button, then extract and copy the skill folders:
+
+```bash
+unzip nodie-skills-main.zip
 cp -r nodie-skills-main/nodie ~/.openclaw/skills/
 cp -r nodie-skills-main/nodie-credentials ~/.openclaw/skills/
 ```
-
-Alternatively, you can provide the skill folder path directly to OpenClaw when it prompts for skill installation.
 
 3. **Configure** `~/.openclaw/openclaw.json`:
 
