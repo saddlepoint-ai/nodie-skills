@@ -1,6 +1,6 @@
 ---
 name: nodie
-description: Build and run automated workflows connecting 50+ services. Zero-auth social media scraping for 11 platforms (XHS, Twitter/X, YouTube, Instagram, TikTok, Pinterest, Reddit, LinkedIn, Bilibili, Discord). AI-powered nodes (GPT-4, Claude, Gemini). Connect Notion, Google Workspace, Slack and more via OAuth. Use when the user wants to automate multi-step tasks, fetch platform data, or schedule recurring jobs.
+description: Build and run automated workflows connecting 50+ services. Zero-auth social media scraping for 9 platforms (Twitter/X, YouTube, Instagram, TikTok, Pinterest, Reddit, LinkedIn, Bilibili, Discord). AI-powered nodes (GPT-4, Claude, Gemini). Connect Notion, Google Workspace, Slack and more via OAuth. Use when the user wants to automate multi-step tasks, fetch platform data, or schedule recurring jobs.
 homepage: https://github.com/saddlepoint-ai/nodie-skills
 metadata: {"clawdbot": {"emoji": "🤖", "requires": {"env": ["NODIE_API_URL", "NODIE_API_KEY"]}, "primaryEnv": "NODIE_API_KEY", "files": ["references/*"]}, "version": "1.0.0"}
 ---
@@ -40,7 +40,7 @@ Without this skill, OAuth-based nodes (~20 integrations) will not work.
 
 ## When to Use
 
-- User wants to search/fetch content from platforms (XiaoHongShu, Twitter/X, YouTube, Instagram, TikTok, Pinterest, Reddit, Bilibili, LinkedIn)
+- User wants to search/fetch content from platforms (Twitter/X, YouTube, Instagram, TikTok, Pinterest, Reddit, Bilibili, LinkedIn)
 - User wants to connect multiple services in a pipeline (fetch → transform → save)
 - User wants to schedule recurring automations
 - User wants to generate documents/reports from external data
@@ -74,7 +74,7 @@ For past results: GET execution by `execution_id`.
 
 Many nodes rely on external services (Apify crawlers, AssemblyAI, LLM generation, etc.) and take **30–120 seconds** to complete. Never assume instant completion.
 
-**Slow nodes** (expect 30–120s): `twitter.search`, `xhs.search`, `youtube.search`, `youtube.get_videos`, `youtube.get_channel`, `instagram.search`, `tiktok.search`, `pinterest.search`, `linkedin.search`, `reddit.search`, `video.fetch`, `assemblyai.transcribe`, `xfyun.transcribe`, `gemini.video`.
+**Slow nodes** (expect 30–120s): `twitter.search`, `youtube.search`, `youtube.get_videos`, `youtube.get_channel`, `instagram.search`, `tiktok.search`, `pinterest.search`, `linkedin.search`, `reddit.search`, `video.fetch`, `assemblyai.transcribe`, `xfyun.transcribe`, `gemini.video`.
 
 **Required pattern when calling `/execute`:**
 
@@ -121,8 +121,6 @@ All available nodes are listed below. For each node you select, read its paramet
 
 | Node | Purpose | Auth |
 |------|---------|------|
-| xhs.search | Search Xiaohongshu (RedNote) posts by keyword | zero-auth |
-| xhs.get_comments | Scrape comment content from XHS posts | zero-auth |
 | twitter.search | Search Twitter/X tweets by keyword or user | zero-auth (apify) |
 | reddit.search | Search Reddit posts, subreddits, or users | zero-auth (apify) |
 | youtube.search | Search YouTube videos, channels, or playlists | zero-auth (apify) |
@@ -133,7 +131,7 @@ All available nodes are listed below. For each node you select, read its paramet
 | pinterest.search | Search Pinterest pins by keyword | zero-auth (apify) |
 | linkedin.search | Search LinkedIn job postings | zero-auth (apify) |
 | discord.messages | Read messages from a Discord channel | — |
-| video.fetch | Get direct video URL from Bilibili, YouTube, XHS, TikTok, etc. | zero-auth |
+| video.fetch | Get direct video URL from Bilibili, YouTube, TikTok, etc. | zero-auth |
 
 ### Messaging
 
@@ -145,7 +143,6 @@ All available nodes are listed below. For each node you select, read its paramet
 | gmail.get | Get email details from Gmail | google credential |
 | slack.post_message | Post a message to a Slack channel | slack credential |
 | slack.interactive_message | Send interactive buttons for approval workflows | slack credential |
-| feishu.send_card | Send messages/cards to Feishu (飞书) | feishu credential |
 
 ### Productivity
 
@@ -169,7 +166,6 @@ All available nodes are listed below. For each node you select, read its paramet
 | google_drive.get | Get file metadata from Google Drive | google credential |
 | google_drive.create_folder | Create a Google Drive folder | google credential |
 | airtable.append_rows | Append rows to an Airtable table | airtable credential |
-| feishu.bitable_append | Append record to Feishu Bitable (多维表格) | feishu credential |
 | trello.create_card | Create a card in a Trello board | trello credential |
 | supabase.execute | CRUD operations on Supabase tables | supabase credential |
 | supabase.batch | Multiple parallel Supabase queries | supabase credential |
@@ -207,7 +203,7 @@ Read `{baseDir}/references/examples.md` for complete workflow examples.
 ### Quick Example
 
 ```yaml
-name: Search XHS for Coffee
+name: Search Twitter for Coffee
 nodes:
   - id: trigger_1
     type: trigger.manual
@@ -216,10 +212,10 @@ nodes:
     next: [search_1]
 
   - id: search_1
-    type: xhs.search
-    name: Search XHS
+    type: twitter.search
+    name: Search Twitter
     params:
-      keywords: "coffee shops Shanghai"
+      query: "coffee shops Shanghai"
       max_items: 10
     next: [output_1]
 
@@ -230,7 +226,7 @@ nodes:
       outputs:
         - type: json
           value: $search_1
-          label: "XHS Results"
+          label: "Twitter Results"
     next: []
 ```
 
@@ -242,7 +238,7 @@ Key points:
 
 ## Credentials
 
-- **Zero-auth nodes** (XHS, Twitter, Reddit, YouTube, Instagram, TikTok, Pinterest, LinkedIn, video.fetch): work out of the box, no setup needed. Nodie handles all API keys.
+- **Zero-auth nodes** (Twitter, Reddit, YouTube, Instagram, TikTok, Pinterest, LinkedIn, video.fetch): work out of the box, no setup needed. Nodie handles all API keys.
 - **OAuth nodes** (Notion, Slack, Google, GitHub, etc.): requires the `nodie-credentials` companion skill. It detects missing credentials and guides the user through OAuth authorization via the Nodie Dashboard.
 - **AI nodes** (OpenAI, Claude, Gemini): managed by the Nodie platform. Usage is billed to your Nodie account balance — no need to bring your own API keys.
 

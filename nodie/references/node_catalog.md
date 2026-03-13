@@ -24,15 +24,11 @@
 - supabase.batch: Execute multiple Supabase queries in parallel using a single connection [keywords: supabase, database, batch, parallel, postgres, sql]
 - supabase.execute: Execute CRUD operations on Supabase database tables [keywords: supabase, database, crud, postgres, sql]
 - twitter.search: Search Twitter (X) tweets by keyword or user [keywords: twitter, x, tweets, search, social, apify]
-- video.fetch: Fetch direct video URL from various platforms (Xiaohongshu, Bilibili, YouTube, etc.) [keywords: video, download, fetch, url, extract, xiaohongshu, 小红书, rednote, bilibili, b站, youtube, tiktok, 抖音, instagram, reels]
-- xhs.get_comments: Scrape actual comment content from Xiaohongshu posts via comment_v2_sync. Uses system env XHS_APP_API_KEY. REQUIRED for sentiment/reputation analysis. Use after xhs.search to get comments from high-engagement notes. Returns full comment text, user info, likes, and nested replies. [keywords: xiaohongshu, 小红书, rednote, xhs, comments, scrape, social, china, comment_v2_sync]
-- xhs.search: Search Xiaohongshu (RedNote) notes by keyword via search_v2_sync. Uses system env XHS_APP_API_KEY. Returns note metadata and engagement COUNTS only, NOT actual comment content. For sentiment/comment analysis, use xhs.get_comments. [keywords: xiaohongshu, 小红书, rednote, xhs, search, notes, social, china, app_search]
+- video.fetch: Fetch direct video URL from various platforms (Bilibili, YouTube, etc.) [keywords: video, download, fetch, url, extract, bilibili, b站, youtube, tiktok, 抖音, instagram, reels]
 - youtube.get_channel: Get information about a YouTube channel using Apify [keywords: youtube, channel, subscribers, creator, apify]
 - youtube.get_videos: Get detailed information about YouTube videos using Apify [keywords: youtube, video, statistics, details, views, likes, apify]
 - youtube.search: Search YouTube for videos, channels, or playlists using Apify [keywords: youtube, search, video, channel, playlist, media, apify]
 - email.send: Send emails via SMTP. Supports TLS/SSL, authentication, HTML content, and CC/BCC. Use for notifications, newsletters, and alerts. [keywords: email, smtp, send, mail, notify, newsletter, alert, message, communication]
-- feishu.bitable_append: Append a record to a Feishu Bitable (飞书多维表格) [keywords: feishu, lark, 飞书, bitable, 多维表格, database, table, append]
-- feishu.send_card: Send messages or interactive cards to Feishu (飞书) [keywords: feishu, lark, 飞书, message, card, notification, alert]
 - gmail.get: Get email details from Gmail [keywords: google, gmail, email, get, read]
 - gmail.list: List emails from Gmail [keywords: google, gmail, email, list, search]
 - gmail.send: Send an email via Gmail [keywords: google, gmail, email, send, message]
@@ -192,22 +188,10 @@ Optional: credential (string, default:'apify_system'), search_type (string, defa
 Output: tweets (array), total (integer)
 
 #### video.fetch [connector.data]
-Fetch direct video URL from various platforms (Xiaohongshu, Bilibili, YouTube, etc.)
+Fetch direct video URL from various platforms (Bilibili, YouTube, etc.)
 Required: url (string)
 Optional: timeout (integer, default:60), credential (string, default:'apify_system')
 Output: video_url (string), platform (string), metadata (object)
-
-#### xhs.get_comments [connector.data]
-Scrape actual comment content from Xiaohongshu posts via comment_v2_sync. Uses system env XHS_APP_API_KEY. REQUIRED for sentiment/reputation analysis. Use after xhs.search to get comments from high-engagement notes. Returns full comment text, user info, likes, and nested replies.
-Required: post_urls (array)
-Optional: max_pages (any, default:3), sort_strategy (any, default:''), timeout_secs (integer, default:300)
-Output: comments (array), total (integer)
-
-#### xhs.search [connector.data]
-Search Xiaohongshu (RedNote) notes by keyword via search_v2_sync. Uses system env XHS_APP_API_KEY. Returns note metadata and engagement COUNTS only, NOT actual comment content. For sentiment/comment analysis, use xhs.get_comments.
-Required: keywords (any)
-Optional: max_items (integer, default:20), sort_by (string, default:'general'), note_type (string, default:'all'), time_filter (any), timeout_secs (integer, default:300)
-Output: notes (array), total (integer)
 
 #### youtube.get_channel [connector.data]
 Get information about a YouTube channel using Apify
@@ -235,18 +219,6 @@ Send emails via SMTP. Supports TLS/SSL, authentication, HTML content, and CC/BCC
 Required: to (string), subject (string), body (string)
 Optional: credential (any, default:'smtp'), content_type (string, default:'text/plain'), cc (any), bcc (any)
 Output: success (boolean), message_id (any), recipients (array)
-
-#### feishu.bitable_append [connector.messaging]
-Append a record to a Feishu Bitable (飞书多维表格)
-Required: app_token (string), table_id (string), fields (object)
-Optional: credential (string, default:'feishu')
-Output: record_id (string), status (string)
-
-#### feishu.send_card [connector.messaging]
-Send messages or interactive cards to Feishu (飞书)
-Required: receive_id (string), content (any)
-Optional: credential (string, default:'feishu'), receive_id_type (string, default:'open_id'), msg_type (string, default:'interactive')
-Output: message_id (string), status (string)
 
 #### gmail.get [connector.messaging]
 Get email details from Gmail
